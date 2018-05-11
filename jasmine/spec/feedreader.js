@@ -47,7 +47,7 @@ $(function() {
     it('names are valid', function() {
       allFeeds.forEach(feed => {
         expect(feed.name).toBeDefined();
-        expect(feed.name.length).toBeGreaterThan(0);
+        expect(feed.name.length).not.toBe('');
       });
     });
   });
@@ -56,7 +56,6 @@ $(function() {
   /* Write a new test suite named "The menu" */
   describe('The menu', function() {
     const body = document.querySelector('body');
-    const menu = document.querySelector('.slide-menu');
     const icon = document.querySelector('.menu-icon-link');
     /* Write a test that ensures the menu element is
      * hidden by default. You'll have to analyze the HTML and
@@ -73,9 +72,9 @@ $(function() {
      */
     it('changes visibility when the icon is clicked', function() {
       icon.click();
-      expect(body.classList.contains('menu-hidden')).toBe(false);
+      expect(body.classList).not.toContain('menu-hidden');
       icon.click();
-      expect(body.classList.contains('menu-hidden')).toBe(true);
+      expect(body.classList).toContain('menu-hidden');
     });
   });
   /* Write a new test suite named "Initial Entries" */
@@ -90,10 +89,9 @@ $(function() {
       loadFeed(0, done);
     });
 
-    it('has at least one .entry element', function(done) {
-      const feed = document.querySelector('.feed');
-      expect(feed.length).not.toBe(0);
-      done();
+    it('has at least one .entry element', function() {
+      const feedEntry = document.querySelector('.feed .entry');
+      expect(feedEntry.length).not.toBe(0);
     });
   });
   /* Write a new test suite named "New Feed Selection" */
